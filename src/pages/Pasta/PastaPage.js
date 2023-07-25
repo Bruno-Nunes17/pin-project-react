@@ -13,59 +13,25 @@ export const Pasta = () => {
   });
   const renderPins = state.folders[folderIndex].pins;
   useEffect(() =>{
-    fetchPinsByIdAction(dispatch, renderPins, renderPins.length)
+    fetchPinsByIdAction(dispatch, renderPins)
   },[dispatch, renderPins])
-  console.log(state);
   return (
     <Container>
       <Row>
-        <Col className=" mt-3 p-3
-        " xs={12} md={3}>
+        {state.savedPins.map((pins, pinIndex) =>(
+          <Col className=" mt-3 p-3
+        " xs={12} md={3} key={pinIndex}>
           <Card>
             <Card.Img
               variant="top"
-              src="https://images.pexels.com/photos/3573351/pexels-photo-3573351.png?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"
+              src={pins.imagen}
             />
             <Card.Body>
-              <Card.Title>Card Title</Card.Title>
+              <Card.Title>{pins.title}</Card.Title>
             </Card.Body>
           </Card>
         </Col>
-        <Col className=" mt-3 p-3
-        " xs={12} md={3}>
-          <Card>
-            <Card.Img
-              variant="top"
-              src="https://images.pexels.com/photos/3573351/pexels-photo-3573351.png?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"
-            />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className=" mt-3 p-3" xs={12} md={3}>
-          <Card>
-            <Card.Img
-              variant="top"
-              src="https://images.pexels.com/photos/3573351/pexels-photo-3573351.png?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"
-            />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col className=" mt-3 p-3
-        " xs={12} md={3}>
-          <Card>
-            <Card.Img
-              variant="top"
-              src="https://images.pexels.com/photos/3573351/pexels-photo-3573351.png?auto=compress&cs=tinysrgb&fit=crop&h=1200&w=800"
-            />
-            <Card.Body>
-              <Card.Title>Card Title</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
+        ))}
       </Row>
     </Container>
   );

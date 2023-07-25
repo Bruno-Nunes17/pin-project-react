@@ -8,7 +8,7 @@ import { Pasta } from "./pages/Pasta/PastaPage";
 const initialState = {
   activePinId: null,
   activeFolderId: null,
-  currentPage: null,
+  currentPage: 1,
   mode: null,
   folders: [],
   type: null,

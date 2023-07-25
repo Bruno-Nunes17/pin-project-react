@@ -61,9 +61,15 @@ export function reducer(state, action) {
         case types.openPastaPageType:
           return{
             ...state,
-            types: types.openPastaPageType,
+            type: types.openPastaPageType,
             activeFolderId: action.payload,
           }
+          case types.paginationSuccessType:
+            return{
+              ...state,
+              type: types.paginationSuccessType,
+              currentPage: action.payload,
+            }
     default:
       return {...state,
       type: action.type};

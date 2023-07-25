@@ -27,8 +27,8 @@ export const HomePage = () => {
 
 
   useEffect(() =>{
-    fetchPinsAction(dispatch)
-  },[dispatch])
+    fetchPinsAction(dispatch, state.currentPage)
+  },[dispatch, state.currentPage])
 
   useEffect(() => {
     if (state.type === saveFoldersSuccessType) {

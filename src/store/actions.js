@@ -84,9 +84,9 @@ export const fetchPinsSuccessAction = (pinsData) => ({
   payload: pinsData,
 });
 
-export const fetchPinsAction = async (dispatch) => {
+export const fetchPinsAction = async (dispatch, page) => {
   dispatch(fetchPinsInitAction());
-  const pinsData = await pinServices.getPins();
+  const pinsData = await pinServices.getPins(page);
   dispatch(fetchPinsSuccessAction(pinsData));
 };
 
@@ -108,8 +108,26 @@ export const fetchPinsByIdSuccessAction = (pinsData) => ({
   payload: pinsData,
 });
 
-export const fetchPinsByIdAction = async (dispatch, pinId, totalPins) => {
+export const fetchPinsByIdAction = async (dispatch, pinId) => {
   dispatch(fetchPinsByIdInitAction());
-  const pinsData = await pinServices.getPinsById(pinId,totalPins);
+  const pinsData = await pinServices.getPinsById(pinId);
   dispatch(fetchPinsByIdSuccessAction(pinsData));
+};
+
+//----
+
+export const paginationInitAction = () => ({
+  type: types.paginationInitType,
+});
+
+export const paginationSuccessAction = (page) => ({
+  type: types.paginationSuccessType,
+  payload: page,
+});
+
+export const paginationAction = async (dispatch, currentPage) => {
+  dispatch(paginationInitAction());
+  console.log(currentPage);
+  const page = await pinServices.page(currentPage)
+  dispatch(paginationSuccessAction(page));
 };

@@ -21,4 +21,7 @@ export const openPastaPageType  = 'open pasta page';
 export const fetchPinsByIdInitType = 'fetch pins by id init';
 export const fetchPinsByIdSuccessType = 'fetch pins by id Success';
 
+export const paginationInitType = 'pagination  init';
+export const paginationSuccessType = 'pagination  Success';
+
 

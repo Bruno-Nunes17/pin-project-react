@@ -35,7 +35,6 @@ export const savePinInFolder = async (folderId, pinId) => {
   const folderIndex = folders.findIndex(function (folder) {
     return folder.id === folderId;
   });
-  console.log(folders);
   if (folderIndex !== -1) {
     folders[folderIndex].pins.push(pinId);
   }
@@ -44,8 +43,16 @@ export const savePinInFolder = async (folderId, pinId) => {
   return { ...folders[folderIndex] };
 };
 
-export const getPins = async () => {
-  const fotos = await client.photos.curated({ page: 1, per_page: 12 });
+export const page = async (currentPage) =>{
+  const page = currentPage;
+  return page;
+}
+
+export const getPins = async (page) => {
+  const fotos = await client.photos.curated({
+     page: page, 
+     per_page: 16 
+    });
   const pins = fotos.photos.map((foto) => ({
     id: foto.id,
     title: foto.alt,
@@ -55,16 +62,16 @@ export const getPins = async () => {
   return pins;
 };
 
-export const getPinsById = async (pinId, totalPins) => {
-  const fotos = await client.photos.show({ id: pinId });
-  // const pins = fotos.map((foto) => ({
-  //   id: foto.id,
-  //   title: foto.alt,
-  //   imagen: foto.src.portrait,
-  // }));
-  return {
-    id: fotos.id,
-    title: fotos.alt,
-    imagen: fotos.src.portrait,
-  };
+export const getPinsById = async (pinId) => {
+  const pins = []
+  for(let i = 0; i < pinId.length; i++){
+  const fotos = await client.photos.show({ id: pinId[i] });
+  pins.push(fotos)
+  }
+  const fotos = pins.map((foto) => ({
+    id: foto.id,
+    title: foto.alt,
+    imagen: foto.src.portrait,
+  }));
+  return fotos;
 };
