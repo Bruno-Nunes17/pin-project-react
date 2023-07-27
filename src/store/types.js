@@ -13,6 +13,12 @@ export const saveFoldersType = 'save folder';
 export const savePinInFoldersInitType = 'save pin in folder init';
 export const savePinInFoldersSuccessType = 'save pin in folder Success';
 
+export const removePinInitType = 'remove pin init';
+export const removePinSuccessType = 'remove pin Success';
+
+export const removeFolderInitType = 'remove folder init';
+export const removeFolderSuccessType = 'remove folder Success';
+
 export const fetchPinsInitType = 'fetch pins init';
 export const fetchPinsSuccessType = 'fetch pins Success';
 

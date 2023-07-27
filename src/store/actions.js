@@ -65,10 +65,10 @@ export const savePinInFolderSuccessAction = (folders) => ({
   payload: folders,
 });
 
-export const savePinInFolderAction = async (dispatch, pinId, folderId, folderName) => {
+export const savePinInFolderAction = async (dispatch, pinId, folderId) => {
   dispatch(savePinInFolderInitAction());
   await sleep(1000);
-  await pinServices.savePinInFolder(folderId, pinId, folderName);
+  await pinServices.savePinInFolder(folderId, pinId);
   const folders = await pinServices.getFolders();
   dispatch(savePinInFolderSuccessAction(folders));
 };
@@ -127,7 +127,43 @@ export const paginationSuccessAction = (page) => ({
 
 export const paginationAction = async (dispatch, currentPage) => {
   dispatch(paginationInitAction());
-  console.log(currentPage);
   const page = await pinServices.page(currentPage)
   dispatch(paginationSuccessAction(page));
 };
+
+//----
+
+export const removePinInitAction = () => ({
+  type: types.removePinInitType,
+});
+
+export const removePinSuccessAction = (folders) => ({
+  type: types.removePinSuccessType,
+  payload: folders,
+});
+
+export const removePinAction = async (dispatch, pinId, folderId) => {
+  dispatch(removePinInitAction());
+  await pinServices.removePin(folderId, pinId);
+  const folders = await pinServices.getFolders();
+  dispatch(removePinSuccessAction(folders));
+};
+
+//----
+
+export const removeFolderInitAction = () => ({
+  type: types.removeFolderInitType,
+});
+
+export const removeFolderSuccessAction = (folders) => ({
+  type: types.removeFolderSuccessType,
+  payload: folders,
+});
+
+export const removeFolderAction = async (dispatch,folderId) => {
+  dispatch(removeFolderInitAction());
+  await pinServices.removeFolder(folderId);
+  const folders = await pinServices.getFolders();
+  dispatch(removeFolderSuccessAction(folders));
+};
+

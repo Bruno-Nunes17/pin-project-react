@@ -1,10 +1,11 @@
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
 import { useAppContext } from "../../store/AppContext";
 import { useEffect } from "react";
-import { fetchPinsByIdAction } from "../../store/actions";
+import { fetchPinsByIdAction, removePinAction } from "../../store/actions";
+import { Card } from "../../components/Card/Card";
+import { BsFillTrash3Fill } from "react-icons/bs";
 
 export const Pasta = () => {
   const { state, dispatch } = useAppContext();
@@ -15,21 +16,17 @@ export const Pasta = () => {
   useEffect(() =>{
     fetchPinsByIdAction(dispatch, renderPins)
   },[dispatch, renderPins])
+
+  const handleClick = (id)=>{
+    removePinAction(dispatch, id, state.activeFolderId)
+  }
   return (
     <Container>
       <Row>
-        {state.savedPins.map((pins, pinIndex) =>(
+        {state.savedPins.map((pin, pinIndex) =>(
           <Col className=" mt-3 p-3
         " xs={12} md={3} key={pinIndex}>
-          <Card>
-            <Card.Img
-              variant="top"
-              src={pins.imagen}
-            />
-            <Card.Body>
-              <Card.Title>{pins.title}</Card.Title>
-            </Card.Body>
-          </Card>
+          <Card {...pin} variant='danger' buttonTitle={<BsFillTrash3Fill/>} onClick={() => handleClick(pin.id)}/>
         </Col>
         ))}
       </Row>

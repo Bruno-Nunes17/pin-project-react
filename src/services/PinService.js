@@ -42,6 +42,32 @@ export const savePinInFolder = async (folderId, pinId) => {
 
   return { ...folders[folderIndex] };
 };
+export const removePin = async (folderId, pinId) => {
+  const folders = await getFolders();
+  const folderIndex = folders.findIndex(function (folder) {
+    return folder.id === folderId;
+  });
+  const indexToRemove = folders[folderIndex].pins.indexOf(pinId);
+  if (folderIndex !== -1) {
+    folders[folderIndex].pins.splice(indexToRemove, 1);
+  }
+  await saveFolders(folders);
+
+  return { ...folders[folderIndex] };
+};
+
+export const removeFolder = async (folderId) => {
+  const folders = await getFolders();
+  const folderIndex = folders.findIndex(function (folder) {
+    return folder.id === folderId;
+  });
+  if (folderIndex !== -1) {
+    folders.splice(folderIndex, 1);
+  }
+  await saveFolders(folders);
+
+  return folders;
+};
 
 export const page = async (currentPage) =>{
   const page = currentPage;

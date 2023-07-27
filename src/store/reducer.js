@@ -70,6 +70,18 @@ export function reducer(state, action) {
               type: types.paginationSuccessType,
               currentPage: action.payload,
             }
+          case types.removePinSuccessType:
+            return{
+              ...state,
+              type: types.removePinSuccessType,
+              folders:  action.payload
+            }  
+          case types.removeFolderSuccessType:
+            return{
+              ...state,
+              type: types.removeFolderSuccessType,
+              folders: action.payload
+            }
     default:
       return {...state,
       type: action.type};
