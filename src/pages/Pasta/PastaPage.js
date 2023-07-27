@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { fetchPinsByIdAction, removePinAction } from "../../store/actions";
 import { Card } from "../../components/Card/Card";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { Spinner } from "../../components/Spinner/Spinner";
+import { fetchPinsByIdSuccessType } from "../../store/types";
 
 export const Pasta = () => {
   const { state, dispatch } = useAppContext();
@@ -22,8 +24,9 @@ export const Pasta = () => {
   }
   return (
     <Container>
+      {state.type !== fetchPinsByIdSuccessType  &&  <Spinner/>}
       <Row>
-        {state.savedPins.map((pin, pinIndex) =>(
+        {state.savedPins.length > 0 && state.savedPins.map((pin, pinIndex) =>(
           <Col className=" mt-3 p-3
         " xs={12} md={3} key={pinIndex}>
           <Card {...pin} variant='danger' buttonTitle={<BsFillTrash3Fill/>} onClick={() => handleClick(pin.id)}/>

@@ -7,9 +7,10 @@ import { ModalCreateFolder } from "../../containers/ModalCreateFolder/ModalCreat
 import { ModalSavePin } from "../../containers/ModalSavePin/ModalSavePin";
 import { Notification } from "../../components/Notification/Notification";
 import { useAppContext } from "../../store/AppContext";
-import { saveFoldersSuccessType } from "../../store/types";
+import { saveFoldersSuccessType, fetchPinsBySearchSuccessType } from "../../store/types";
 import { fetchPinsBySearchAction } from "../../store/actions";
 import { Pagination } from "../../components/Pagination/Pagination";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 
 export const Search = () => {
@@ -49,7 +50,7 @@ export const Search = () => {
       )}
       <Container fluid>
         <Row className="d-flex justify-content-center">
-          {pinsNormalized.map((pin) => (
+        {pinsNormalized.length > 0 && pinsNormalized.map((pin) => (
             <Col className=" mt-3 p-4" xs={12} md={3} key={pin.id}>
               <CardContainer
                 {...pin}
@@ -57,6 +58,7 @@ export const Search = () => {
             </Col>
           ))}
         </Row>
+        {state.type !== fetchPinsBySearchSuccessType &&  <Spinner/>}
       </Container>
       <Pagination/>
     </div>

@@ -8,8 +8,9 @@ import { ModalCreateFolder } from "../../containers/ModalCreateFolder/ModalCreat
 import { ModalSavePin } from "../../containers/ModalSavePin/ModalSavePin";
 import { Notification } from "../../components/Notification/Notification";
 import { useAppContext } from "../../store/AppContext";
-import { saveFoldersSuccessType } from "../../store/types";
+import { saveFoldersSuccessType, fetchPinsSuccessType } from "../../store/types";
 import { fetchPinsAction } from "../../store/actions";
+import { Spinner } from "../../components/Spinner/Spinner";
 
 
 export const HomePage = () => {
@@ -49,7 +50,7 @@ export const HomePage = () => {
       )}
       <Container fluid>
         <Row className="d-flex justify-content-center">
-          {pinsNormalized.map((pin) => (
+          {pinsNormalized.length > 0 && pinsNormalized.map((pin) => (
             <Col className=" mt-3 p-4" xs={12} md={3} key={pin.id}>
               <CardContainer
                 {...pin}
@@ -57,6 +58,7 @@ export const HomePage = () => {
             </Col>
           ))}
         </Row>
+        {state.type !== fetchPinsSuccessType &&  <Spinner/>}
       </Container>
       <Pagination/>
     </div>
