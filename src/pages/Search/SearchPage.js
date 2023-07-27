@@ -16,6 +16,7 @@ import { Spinner } from "../../components/Spinner/Spinner";
 export const Search = () => {
   const { state, dispatch } = useAppContext();
   const [showFeedBack, setShowFeedBack] = useState(false);
+  const [showLoading, setShowLoading] = useState(false)
 
 
   const pinsNormalized = state.pins.map(pin =>{ 
@@ -29,7 +30,13 @@ export const Search = () => {
 
   useEffect(() =>{
     fetchPinsBySearchAction(dispatch, state.query, state.currentPage)
-  },[dispatch, state.query, state.currentPage])
+  },[dispatch, state.query, state.currentPage]);
+
+  useEffect(() => {
+    if (state.type === fetchPinsBySearchSuccessType) {
+      setShowLoading(true);
+    }
+  }, [state.type]);
 
   useEffect(() => {
     if (state.type === saveFoldersSuccessType) {
@@ -58,7 +65,7 @@ export const Search = () => {
             </Col>
           ))}
         </Row>
-        {state.type !== fetchPinsBySearchSuccessType &&  <Spinner/>}
+        {!showLoading &&  <Spinner/>}
       </Container>
       <Pagination/>
     </div>

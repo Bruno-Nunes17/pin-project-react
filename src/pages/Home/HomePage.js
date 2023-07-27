@@ -8,7 +8,7 @@ import { ModalCreateFolder } from "../../containers/ModalCreateFolder/ModalCreat
 import { ModalSavePin } from "../../containers/ModalSavePin/ModalSavePin";
 import { Notification } from "../../components/Notification/Notification";
 import { useAppContext } from "../../store/AppContext";
-import { saveFoldersSuccessType, fetchPinsSuccessType } from "../../store/types";
+import { saveFoldersSuccessType, fetchPinsSuccessType} from "../../store/types";
 import { fetchPinsAction } from "../../store/actions";
 import { Spinner } from "../../components/Spinner/Spinner";
 
@@ -16,6 +16,7 @@ import { Spinner } from "../../components/Spinner/Spinner";
 export const HomePage = () => {
   const { state, dispatch } = useAppContext();
   const [showFeedBack, setShowFeedBack] = useState(false);
+  const [showLoading, setShowLoading] = useState(false)
 
 
   const pinsNormalized = state.pins.map(pin =>{ 
@@ -29,7 +30,13 @@ export const HomePage = () => {
 
   useEffect(() =>{
     fetchPinsAction(dispatch, state.currentPage)
-  },[dispatch, state.currentPage])
+  },[dispatch, state.currentPage]);
+
+  useEffect(() => {
+    if (state.type === fetchPinsSuccessType) {
+      setShowLoading(true);
+    }
+  }, [state.type]);
 
   useEffect(() => {
     if (state.type === saveFoldersSuccessType) {
@@ -58,7 +65,7 @@ export const HomePage = () => {
             </Col>
           ))}
         </Row>
-        {state.type !== fetchPinsSuccessType &&  <Spinner/>}
+        {!showLoading &&   <Spinner/>}
       </Container>
       <Pagination/>
     </div>
