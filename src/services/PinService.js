@@ -77,7 +77,26 @@ export const page = async (currentPage) =>{
 export const getPins = async (page) => {
   const fotos = await client.photos.curated({
      page: page, 
-     per_page: 16 
+     per_page: 16,
+     locale: "pt-BR"
+    });
+  const pins = fotos.photos.map((foto) => ({
+    id: foto.id,
+    title: foto.alt,
+    imagen: foto.src.portrait,
+    total: 0,
+  }));
+  return pins;
+};
+
+export const getBySearchPins = async (search, page) => {
+  const query = search;
+
+  const fotos = await client.photos.search({
+     query,
+     page: page,
+     per_page: 16,
+     locale: "pt-BR"
     });
   const pins = fotos.photos.map((foto) => ({
     id: foto.id,

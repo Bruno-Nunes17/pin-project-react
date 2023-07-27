@@ -52,6 +52,12 @@ export function reducer(state, action) {
           type: types.fetchPinsSuccessType,
           pins: action.payload
         }
+        case types.fetchPinsBySearchSuccessType:
+        return{
+          ...state,
+          type: types.fetchPinsBySearchSuccessType,
+          pins: action.payload
+        }
         case types.fetchPinsByIdSuccessType:
           return{
             ...state,
@@ -63,6 +69,12 @@ export function reducer(state, action) {
             ...state,
             type: types.openPastaPageType,
             activeFolderId: action.payload,
+          }
+          case types.openPastaSearchType:
+          return{
+            ...state,
+            type: types.openPastaSearchType,
+            query: action.payload,
           }
           case types.paginationSuccessType:
             return{

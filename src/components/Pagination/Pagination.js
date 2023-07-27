@@ -9,9 +9,11 @@ export const Pagination = () => {
   const handleClick = (number) =>{
     const page = state.currentPage + number;
     page <= 0 ? paginationAction(dispatch, 1) : paginationAction(dispatch, page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   const handleSkip = (number) => {
     paginationAction(dispatch, number)
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   return (
     <PaginationBS className="d-flex justify-content-center">

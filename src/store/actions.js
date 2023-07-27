@@ -98,6 +98,11 @@ export const openPastaPageAction = (id) => ({
 });
 
 //----
+export const openPastaSearchAction = (query) => ({
+  type: types.openPastaSearchType,
+  payload: query,
+});
+//----
 
 export const fetchPinsByIdInitAction = () => ({
   type: types.fetchPinsByIdInitType,
@@ -112,6 +117,23 @@ export const fetchPinsByIdAction = async (dispatch, pinId) => {
   dispatch(fetchPinsByIdInitAction());
   const pinsData = await pinServices.getPinsById(pinId);
   dispatch(fetchPinsByIdSuccessAction(pinsData));
+};
+
+//----
+
+export const fetchPinsBySearchnitAction = () => ({
+  type: types.fetchPinsBySearchInitType,
+});
+
+export const fetchPinsBySearchSuccessAction = (pinsData) => ({
+  type: types.fetchPinsBySearchSuccessType,
+  payload: pinsData,
+});
+
+export const fetchPinsBySearchAction = async (dispatch, query, page) => {
+  dispatch(fetchPinsBySearchnitAction());
+  const pinsData = await pinServices.getBySearchPins(query, page);
+  dispatch(fetchPinsBySearchSuccessAction(pinsData));
 };
 
 //----

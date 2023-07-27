@@ -22,10 +22,14 @@ export const removeFolderSuccessType = 'remove folder Success';
 export const fetchPinsInitType = 'fetch pins init';
 export const fetchPinsSuccessType = 'fetch pins Success';
 
-export const openPastaPageType  = 'open pasta page';
-
 export const fetchPinsByIdInitType = 'fetch pins by id init';
 export const fetchPinsByIdSuccessType = 'fetch pins by id Success';
+
+export const fetchPinsBySearchInitType = 'fetch pins by search init';
+export const fetchPinsBySearchSuccessType = 'fetch pins by search Success';
+
+export const openPastaPageType  = 'open pasta page';
+export const openPastaSearchType  = 'open Search page';
 
 export const paginationInitType = 'pagination  init';
 export const paginationSuccessType = 'pagination  Success';
